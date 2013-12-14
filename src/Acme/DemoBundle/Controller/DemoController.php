@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Acme\DemoBundle\Form\ContactType;
-
+use Acme\DemoBundle\Entity\User;
 // these import the "@Route" and "@Template" annotations
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -19,7 +19,10 @@ class DemoController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $form = $this->createFormBuilder(new User())
+                ->add('name')->getForm();
+        
+        return array('form' => $form->createView());
     }
 
     /**
@@ -28,6 +31,7 @@ class DemoController extends Controller
      */
     public function helloAction($name)
     {
+        
         return array('name' => $name);
     }
 
